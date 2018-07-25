@@ -14,6 +14,7 @@ const opts = minimist(process.argv.slice(2), {
         b: 'branch',
         p: 'prefix',
         t: 'type',
+        s: 'source',
 
         // Miscellaneous
         h: 'help',
@@ -22,6 +23,7 @@ const opts = minimist(process.argv.slice(2), {
     default: {
         remote: 'origin',
         branch: 'master',
+        directory: './',
     },
 });
 
@@ -35,8 +37,9 @@ where release-type can be major, minor, patch or a custom name
 Configuration:
     -r, --remote    The remote name to push to, origin by default
     -b, --branch    The branch name to push, master by default
-    -p, --prefix    The branch name to push, master by default
+    -p, --prefix     The branch name to push, master by default
     -t, --type      An alternative way to pass the release type (as described above) 
+    -s, --source    Directory to publish
 
 Miscellaneous:
     -h, --help      Display this help
@@ -55,6 +58,7 @@ try {
         remote: opts.remote || opts._[1],
         branch: opts.branch || opts._[2],
         prefix: opts.prefix,
+        source: opts.source,
     })(opts.type || opts._[0]);
 } catch (error) {
     if (error.name === 'UsageError') {
